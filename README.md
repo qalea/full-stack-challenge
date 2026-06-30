@@ -64,13 +64,14 @@ Time is not a key factor. We recommend spending about an afternoon on this, thou
 ## Submission
 
 1. Work in a new branch using your name as branch's name, using `main` branch as base from this GitHub repository.
-2. Include a `INSTRUCTIONS.md` file containing:
+2. The application scaffold lives in the `notes-app/` directory — build your solution there.
+3. Include a brief `INSTRUCTIONS.md` file containing:
     - Installation and execution instructions
     - Stack and tools used
     - Description of the project architecture
     - Key technical decisions and why you made them
     - You will use this document for the discussion later about the solution
-3. Push your branch.
+4. Push your branch.
 
 ---
 
