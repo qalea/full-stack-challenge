@@ -63,28 +63,14 @@ Time is not a key factor. We recommend spending about an afternoon on this, thou
 
 ## Submission
 
-1. Upload your solution to a public GitHub repository.
-2. Include a `README.md` file containing:
+1. Work in a new branch using your name as branch's name, using `main` branch as base from this GitHub repository.
+2. Include a `INSTRUCTIONS.md` file containing:
     - Installation and execution instructions
     - Stack and tools used
     - Description of the project architecture
     - Key technical decisions and why you made them
-3. Send us an email to engineering@qalea.ai with:
-    - Your full name
-    - Link to the repository
-    - A brief explanation (3–5 lines) of your general approach
-
----
-
-## Extras (optional)
-
-If you have time or want to showcase your skills beyond the basics, here are some extra ideas:
-
-- Support for Markdown or images in notes
-- Smooth animations or transitions
-- Light/dark mode
-- Note sorting or reordering functionality (drag & drop)
-- Automated tests
+    - You will use this document for the discussion later about the solution
+3. Push your branch.
 
 ---
 
