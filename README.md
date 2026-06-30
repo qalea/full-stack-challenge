@@ -31,7 +31,7 @@ We recommend using technologies similar to those we use in our real-world work e
 - Next.js 15+
 - TypeScript
 
-But if you’d rather use a different stack that you’re comfortable with and that you think will best showcase your skills, that’s fine. We’re more interested in your reasoning and execution than in whether you use our stack.
+So we've prepared a minimal scaffolding app under `notes-app`, but if you’d rather use a different stack that you’re comfortable with and that you think will best showcase your skills, that’s fine. We’re more interested in your reasoning and execution than in whether you use a specific stack.
 
 ---
 
