@@ -12,14 +12,18 @@ export function NoteForm({ categories }: { categories: Category[] }) {
   );
 
   return (
-    // Re-key on each successful create so the uncontrolled fields remount empty;
-    // on a validation error `createdId` is undefined → key stays 'new' → typed values persist.
+    // React 19 auto-resets a form action's fields to their defaultValue after submit:
+    // on success `state.values` is undefined → fields clear; on error the echoed values
+    // become the defaults → the user's input is preserved.
     <form
-      key={state.createdId ?? 'new'}
       action={action}
       className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
     >
-      <NoteFields categories={categories} errors={state.errors} />
+      <NoteFields
+        categories={categories}
+        errors={state.errors}
+        defaultValues={state.values}
+      />
 
       <div className="flex justify-end">
         <button

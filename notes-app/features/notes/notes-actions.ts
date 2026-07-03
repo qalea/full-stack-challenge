@@ -11,11 +11,28 @@ import {
   updateNoteSchema,
 } from './notes-schemas';
 
+export type NoteFieldValues = {
+  title: string;
+  body: string;
+  categoryId: number | null;
+};
+
 export type NoteFormState = {
   ok?: boolean;
-  createdId?: number;
   errors?: Record<string, string[]>;
+  // Echoed back on error so the form keeps what the user typed (React 19
+  // auto-resets a form action's fields to their defaultValue on submit).
+  values?: NoteFieldValues;
 };
+
+function rawValues(formData: FormData): NoteFieldValues {
+  const categoryId = formData.get('categoryId');
+  return {
+    title: String(formData.get('title') ?? ''),
+    body: String(formData.get('body') ?? ''),
+    categoryId: categoryId ? Number(categoryId) : null,
+  };
+}
 
 function revalidate() {
   revalidatePath('/notes'); // invalidate server cache
@@ -33,17 +50,14 @@ export async function createNote(
   });
 
   if (!parsed.success) {
-    return { errors: z.flattenError(parsed.error).fieldErrors };
+    return { errors: z.flattenError(parsed.error).fieldErrors, values: rawValues(formData) };
   }
 
   // Re-validated server-side: actions are reachable via direct POST, not just the UI.
-  const [row] = await db
-    .insert(notes)
-    .values(parsed.data)
-    .returning({ id: notes.id });
+  await db.insert(notes).values(parsed.data);
 
   revalidate();
-  return { ok: true, createdId: row.id };
+  return { ok: true };
 }
 
 export async function updateNote(
@@ -58,7 +72,7 @@ export async function updateNote(
   });
 
   if (!parsed.success) {
-    return { errors: z.flattenError(parsed.error).fieldErrors };
+    return { errors: z.flattenError(parsed.error).fieldErrors, values: rawValues(formData) };
   }
 
   const { id, ...values } = parsed.data;

@@ -107,7 +107,7 @@ function EditCard({
         <NoteFields
           categories={categories}
           errors={state.errors}
-          defaultValues={note}
+          defaultValues={state.values ?? note}
         />
         <div className="flex justify-end gap-2">
           <button

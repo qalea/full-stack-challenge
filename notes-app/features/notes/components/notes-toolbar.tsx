@@ -25,19 +25,28 @@ export function NotesToolbar({ categories }: { categories: Category[] }) {
 
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-      <input
-        type="search"
-        aria-label="Search notes"
-        placeholder="Search notes…"
-        defaultValue={searchParams.get('q') ?? ''}
-        onChange={(e) => debouncedSearch(e.target.value)}
-        className={inputClass}
-      />
+      <div className="relative flex-1">
+        <input
+          type="search"
+          aria-label="Search notes"
+          placeholder="Search notes…"
+          defaultValue={searchParams.get('q') ?? ''}
+          onChange={(e) => debouncedSearch(e.target.value)}
+          className={inputClass}
+        />
+        {pending && (
+          <span
+            aria-label="Searching"
+            role="status"
+            className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600 dark:border-zinc-700 dark:border-t-zinc-300"
+          />
+        )}
+      </div>
       <select
         aria-label="Filter by category"
         defaultValue={searchParams.get('categoryId') ?? ''}
         onChange={(e) => setParam('categoryId', e.target.value)}
-        className={`${inputClass} sm:w-56`}
+        className={`${inputClass} sm:flex-1`}
       >
         <option value="">All categories</option>
         {categories.map((c) => (
@@ -46,12 +55,6 @@ export function NotesToolbar({ categories }: { categories: Category[] }) {
           </option>
         ))}
       </select>
-      <span
-        aria-hidden
-        className={`text-xs text-zinc-400 transition-opacity ${pending ? 'opacity-100' : 'opacity-0'}`}
-      >
-        Searching…
-      </span>
     </div>
   );
 }
