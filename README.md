@@ -55,12 +55,6 @@ So we've prepared a minimal scaffolding app under `notes-app`, but if you’d ra
 
 ---
 
-## Estimated time
-
-Time is not a key factor. We recommend spending about an afternoon on this, though you can take more or less time if needed. There is no strict time limit.
-
----
-
 ## Submission
 
 1. Work in a new branch using your name as branch's name, using `main` branch as base from this GitHub repository.
