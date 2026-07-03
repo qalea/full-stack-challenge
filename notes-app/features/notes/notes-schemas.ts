@@ -17,3 +17,13 @@ export const noteIdSchema = z.coerce.number().int().positive();
 export const updateNoteSchema = createNoteSchema.extend({
   id: noteIdSchema,
 });
+
+export const notesFilterSchema = z.object({
+  q: z.preprocess(
+    (v) => (typeof v === 'string' && v.trim() ? v.trim() : undefined),
+    z.string().optional(),
+  ),
+  categoryId: z.coerce.number().int().positive().optional().catch(undefined),
+});
+
+export type NotesFilter = z.infer<typeof notesFilterSchema>;

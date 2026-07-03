@@ -1,14 +1,24 @@
 import type { Category } from '../db/schema';
 import { getNotes } from '../notes-queries';
+import type { NotesFilter } from '../notes-schemas';
 import { NoteCard } from './note-card';
 
-export async function NoteList({ categories }: { categories: Category[] }) {
-  const items = await getNotes();
+export async function NoteList({
+  categories,
+  filter,
+}: {
+  categories: Category[];
+  filter?: NotesFilter;
+}) {
+  const items = await getNotes(filter);
 
   if (!items.length) {
+    const filtering = Boolean(filter?.q || filter?.categoryId);
     return (
       <p className="rounded-lg border border-dashed border-zinc-300 p-8 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-        No notes yet — create your first one above.
+        {filtering
+          ? 'No notes match your search.'
+          : 'No notes yet — create your first one above.'}
       </p>
     );
   }
