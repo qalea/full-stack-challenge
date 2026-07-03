@@ -4,7 +4,7 @@ import { NoteListSkeleton } from '@/features/notes/components/note-list';
 // Mirrors the /notes layout (form + toolbar + list) so there's no shift.
 export default function NotesLoading() {
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-6 p-6" aria-hidden>
+    <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6" aria-hidden>
       <div className="h-8 w-24 rounded bg-zinc-200 dark:bg-zinc-800" />
 
       {/* create form: title input, textarea, submit button */}

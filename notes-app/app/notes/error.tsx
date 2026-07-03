@@ -2,7 +2,7 @@
 
 export default function NotesError({ reset }: { error: Error; reset: () => void }) {
   return (
-    <main className="mx-auto flex max-w-3xl flex-col items-start gap-4 p-6">
+    <main className="mx-auto flex w-full max-w-3xl flex-col items-start gap-4 p-6">
       <h1 className="text-lg font-semibold">Something went wrong</h1>
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
         We couldn&apos;t load your notes. Please try again.
