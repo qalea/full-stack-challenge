@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: notes-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: pnpm install && pnpm --filter api build
+    startCommand: pnpm --filter api start
+    healthCheckPath: /health
+    releaseCommand: pnpm --filter api exec prisma migrate deploy
+    envVars:
+      - key: NODE_VERSION
+        value: '20'
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false

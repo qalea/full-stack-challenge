@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+defaults:
+  run:
+    working-directory: notes-app
+
+jobs:
+  ci:
+    name: Lint · Format · Typecheck · Test · Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ──────────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Tooling ───────────────────────────────────────────────────────────────
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: notes-app/pnpm-lock.yaml
+
+      # ── Dependencies ──────────────────────────────────────────────────────────
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # ── Generate Prisma client (no DB needed) ────────────────────────────────
+      - name: Generate Prisma client
+        run: pnpm --filter api db:generate
+
+      # ── Format ────────────────────────────────────────────────────────────────
+      - name: Check formatting (Prettier)
+        run: pnpm format:check
+
+      # ── Lint ──────────────────────────────────────────────────────────────────
+      - name: Lint
+        run: pnpm lint
+
+      # ── Type check ────────────────────────────────────────────────────────────
+      - name: Type check
+        run: pnpm typecheck
+
+      # ── Unit tests ────────────────────────────────────────────────────────────
+      - name: Run tests
+        run: pnpm test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+
+      # ── Build ─────────────────────────────────────────────────────────────────
+      - name: Build
+        run: pnpm build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
