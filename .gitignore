@@ -1,0 +1,5 @@
+# pnpm content-addressable store — never commit
+.pnpm-store/
+
+# OS
+.DS_Store
