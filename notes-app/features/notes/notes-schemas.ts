@@ -11,3 +11,9 @@ export const createNoteSchema = z.object({
 });
 
 export type CreateNoteInput = z.infer<typeof createNoteSchema>;
+
+export const noteIdSchema = z.coerce.number().int().positive();
+
+export const updateNoteSchema = createNoteSchema.extend({
+  id: noteIdSchema,
+});

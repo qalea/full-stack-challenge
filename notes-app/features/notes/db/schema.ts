@@ -25,3 +25,6 @@ export const notesRelations = relations(notes, ({ one }) => ({
 export const categoriesRelations = relations(categories, ({ many }) => ({
   notes: many(notes),
 }));
+
+export type Category = typeof categories.$inferSelect;
+export type Note = typeof notes.$inferSelect;

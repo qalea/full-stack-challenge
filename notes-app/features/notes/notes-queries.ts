@@ -14,3 +14,5 @@ export const getNotes = cache(() =>
 export const getCategories = cache(() =>
   db.select().from(categories).orderBy(categories.name),
 );
+
+export type NoteWithCategory = Awaited<ReturnType<typeof getNotes>>[number];

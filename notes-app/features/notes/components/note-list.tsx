@@ -1,8 +1,8 @@
+import type { Category } from '../db/schema';
 import { getNotes } from '../notes-queries';
+import { NoteCard } from './note-card';
 
-type Note = Awaited<ReturnType<typeof getNotes>>[number];
-
-export async function NoteList() {
+export async function NoteList({ categories }: { categories: Category[] }) {
   const items = await getNotes();
 
   if (!items.length) {
@@ -16,29 +16,9 @@ export async function NoteList() {
   return (
     <ul className="grid gap-3 sm:grid-cols-2">
       {items.map((note) => (
-        <NoteCard key={note.id} note={note} />
+        <NoteCard key={note.id} note={note} categories={categories} />
       ))}
     </ul>
-  );
-}
-
-function NoteCard({ note }: { note: Note }) {
-  return (
-    <li className="flex flex-col gap-2 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="font-medium leading-tight">{note.title}</h3>
-        {note.category && (
-          <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-            {note.category.name}
-          </span>
-        )}
-      </div>
-      {note.body && (
-        <p className="whitespace-pre-wrap text-sm text-zinc-600 dark:text-zinc-400">
-          {note.body}
-        </p>
-      )}
-    </li>
   );
 }
 

@@ -11,7 +11,7 @@ export async function Notes() {
       <h1 className="text-2xl font-semibold tracking-tight">Notes</h1>
       <NoteForm categories={categories} />
       <Suspense fallback={<NoteListSkeleton />}>
-        <NoteList />
+        <NoteList categories={categories} />
       </Suspense>
     </main>
   );
